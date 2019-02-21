@@ -129,23 +129,7 @@ Testing was focused on the following key areas - though this is not an exhaustiv
 
 ### Minor
 
-- **Avoid magic number** – `Best practice` [Issue #1](https://github.com/BlockchainLabsNZ/Sparrowex-spo-audit/issues/1)<br>
-```javascript
-13    uint256 public constant TOTAL_SUPPLY = 1400000000 * (10 ** 18); // 1.4 billion SPO
-......
-20    _mint(0xCF44ccB8f27aEA1abb054d4Ae89AA00CFbda3603, 376000000 * (10 ** 18)); // ICO
-21    _mint(0xEd6D7d1Ffb258bB82A6B5Cf2C2377DCAA6A0b533, 57000000 * (10 ** 18)); // Bonus
-22    _mint(0x1fcE49D845036a54E348fe10Aa6f541DEb48547a, 70000000 * (10 ** 18)); // Advisors
-23    _mint(0xEf235b3CaAA268C4Db6215879a436Af751A0F729, 140000000 * (10 ** 18)); // Founders
-24    _mint(0x49035f3a38644d805C8AEdA5eB5fAA5DB54A5fA0, 70000000 * (10 ** 18)); // Employees
-25    _mint(0xdaBF505B241695788780b12515066746fDD65592, 337000000 * (10 ** 18)); // Reserves Pool
-26    _mint(0xEf13476b380C31CA6B1FB5C49d5CfCedcdB90b69, 140000000 * (10 ** 18)); // Marketing
-27    _mint(0xe998a139D865883C8964d34048a9acb75Eb314Ba, 210000000 * (10 ** 18)); // Strategic Partnerships
-```
-We recommend avoiding the use of magic numbers, using a variable here would improve readability and make the code more maintainable for the future.
-e.g1 add `uint256 public constant ONE_TOKEN = 10 ** 18;` and then replace all the `10 ** 18` with `ONE_TOKEN`
-e.g2 add `uint256 public constant ONE_MILLION = 10 ** 24;` and then carefully replace those numbers with new numbers (for instance, `1400000000 * 10 ** 18` becomes `1400 * ONE_MILLION`)
-<br><br>
+- None found
 
 ### Moderate
 
@@ -166,7 +150,24 @@ e.g2 add `uint256 public constant ONE_MILLION = 10 ** 24;` and then carefully re
 ### Favor auto deployment over manual
 It is better to deploy the contract using script or truffle migration. That makes deployment easier and less prone to mistake.
 
-
+### Avoid magic numbers
+```javascript
+13    uint256 public constant TOTAL_SUPPLY = 1400000000 * (10 ** 18); // 1.4 billion SPO
+......
+20    _mint(0xCF44ccB8f27aEA1abb054d4Ae89AA00CFbda3603, 376000000 * (10 ** 18)); // ICO
+21    _mint(0xEd6D7d1Ffb258bB82A6B5Cf2C2377DCAA6A0b533, 57000000 * (10 ** 18)); // Bonus
+22    _mint(0x1fcE49D845036a54E348fe10Aa6f541DEb48547a, 70000000 * (10 ** 18)); // Advisors
+23    _mint(0xEf235b3CaAA268C4Db6215879a436Af751A0F729, 140000000 * (10 ** 18)); // Founders
+24    _mint(0x49035f3a38644d805C8AEdA5eB5fAA5DB54A5fA0, 70000000 * (10 ** 18)); // Employees
+25    _mint(0xdaBF505B241695788780b12515066746fDD65592, 337000000 * (10 ** 18)); // Reserves Pool
+26    _mint(0xEf13476b380C31CA6B1FB5C49d5CfCedcdB90b69, 140000000 * (10 ** 18)); // Marketing
+27    _mint(0xe998a139D865883C8964d34048a9acb75Eb314Ba, 210000000 * (10 ** 18)); // Strategic Partnerships
+```
+Usually, we would suggest to avoid magic numbers like above. Using a constant variable to replace shared components is good for both readability and future maintenance.<br>
+e.g1 add `uint256 public constant ONE_TOKEN = 10 ** 18;` and then replace all the `10 ** 18` with `ONE_TOKEN`.
+e.g2 add `uint256 public constant ONE_MILLION = 10 ** 24;` and then carefully replace those numbers with new numbers (for instance, `1400000000 * 10 ** 18` becomes `1400 * ONE_MILLION`).
+e.g3 add `uint256 public constant ICO = 0.2686; //ICO percentage` and then replace line 20 with `_mint(0xCF44ccB8f27aEA1abb054d4Ae89AA00CFbda3603, TOTAL_SUPPLY * ICO;` and so on.
+However, introducing this solution is prone to regression and the current code is adequate to achieve goals.
 <br><!-- *********************************************** -->
 
 ## Conclusion
