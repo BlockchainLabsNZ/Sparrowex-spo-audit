@@ -5,7 +5,9 @@
   "author": "U-Zyn Chua <uzyn@zynesis.com>",
   "license": "MIT",
   "dependencies": {
-    "openzeppelin-solidity": "^2.0.0"
+    "openzeppelin-solidity": "^2.0.0",
+    "truffle-hdwallet-provider": "^1.0.4",
+    "truffle-privatekey-provider": "^1.1.0"
   },
   "scripts": {
     "start": "npm run build",
